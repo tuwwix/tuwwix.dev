@@ -3,18 +3,267 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio — tuwwix</title>
+  <title>Tom Charuel — Portfolio</title>
+  <meta name="description" content="Portfolio de Tom Charuel — Développeur Full‑Stack (Node.js, Vue 3, PostgreSQL)." />
+  <meta name="color-scheme" content="light dark">
   <style>
-    body { font-family: system-ui, sans-serif; margin: 40px; }
-    h1 { margin-bottom: .2rem; }
-    .tagline { color: #666; margin-bottom: 2rem; }
-    a.btn { padding: .6rem 1rem; border: 1px solid #ccc; border-radius: 8px; text-decoration: none; }
+    :root{
+      --bg: #0b0c10;
+      --panel: #121318;
+      --text: #e6e7eb;
+      --muted:#9aa0a6;
+      --primary:#4f8cff;
+      --border: #1c1d24;
+      --chip:#1a2340;
+      --good:#24c17c;
+      --warn:#ffb020;
+      --danger:#ff6b6b;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f8fb; --panel:#fff; --text:#101217; --muted:#62676f; --border:#e8e9ee; --chip:#e9f0ff;
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--text);}
+    a{color:inherit}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px); background:color-mix(in oklab, var(--bg) 70%, transparent); border-bottom:1px solid var(--border); z-index:20}
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; gap:10px; align-items:center}
+    .avatar{width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, var(--primary), #9f7aea)}
+    .brand h1{font-size:16px; margin:0}
+    .links{display:flex; gap:16px}
+    .links a{font-size:14px; text-decoration:none; color:var(--muted)}
+    .links a:hover{color:var(--text)}
+    .btn{display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel)}
+    .btn.primary{background:var(--primary); color:white; border-color:color-mix(in oklab, var(--primary), black 15%)}
+    .btn.ghost{background:transparent}
+
+    /* HERO */
+    .hero{padding:64px 0 32px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:28px}
+    .hero h2{font-size:36px; line-height:1.1; margin:0 0 12px}
+    .muted{color:var(--muted)}
+    .hero .actions{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
+    .card{background:var(--panel); border:1px solid var(--border); border-radius:18px; padding:18px}
+
+    /* SECTIONS */
+    section{padding:26px 0}
+    section h3{font-size:22px; margin:0 0 6px}
+    section p.lead{margin-top:0; color:var(--muted)}
+
+    /* PROJECTS */
+    .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px}
+    .project{overflow:hidden; display:flex; flex-direction:column}
+    .thumb{aspect-ratio: 16/9; border-radius:12px; background:#0f121a; border:1px solid var(--border); display:grid; place-items:center; color:var(--muted); font-size:14px}
+    .project h4{margin:12px 0 4px; font-size:16px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px}
+    .chip{font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); color:color-mix(in oklab, var(--primary), var(--text) 40%)}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* SKILLS */
+    .skills{display:flex; flex-wrap:wrap; gap:8px}
+    .skill{padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:linear-gradient(180deg, color-mix(in oklab, var(--panel), white 2%), var(--panel))}
+
+    /* ABOUT */
+    .about{display:grid; grid-template-columns: 1fr 1fr; gap:18px}
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    .stat{padding:14px; border:1px solid var(--border); border-radius:14px; text-align:center; background:var(--panel)}
+    .stat .n{font-weight:700; font-size:20px}
+
+    /* FOOTER */
+    footer{padding:36px 0; border-top:1px solid var(--border); color:var(--muted)}
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr 1fr}
+      .hero-grid{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns:1fr}
+      .hero h2{font-size:28px}
+    }
   </style>
 </head>
 <body>
-  <h1>Tom Charuel</h1>
-  <p class="tagline">Développeur Full-Stack — Node.js • Vue 3 • PostgreSQL</p>
-  <p>Site en construction. Bientôt : projets Réseau / Forge / Enchères.</p>
-  <p><a class="btn" href="mailto:ton@email">Me contacter</a></p>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true"></div>
+        <h1>Tom Charuel</h1>
+      </div>
+      <nav class="links">
+        <a href="#projets">Projets</a>
+        <a href="#competences">Compétences</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card">
+          <p class="muted">Développeur Full‑Stack</p>
+          <h2>Je conçois des applis web robustes en <span style="color:var(--primary)">Node.js</span>, <span style="color:var(--primary)">Vue 3</span> et <span style="color:var(--primary)">PostgreSQL</span>.</h2>
+          <p class="muted">3 ans d'alternance en TPE/PME (AireServices). Focus SSR, JWT/SSO, blocs dynamiques, APIs publiques/privées. Objectif : expérience fluide & maintenance simple.</p>
+          <div class="actions">
+            <a class="btn primary" href="#contact">Me contacter</a>
+            <a class="btn ghost" href="./cv.pdf" target="_blank" rel="noreferrer">Télécharger le CV (PDF)</a>
+            <a class="btn" href="https://github.com/tuwwix" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>En bref</h3>
+          <ul class="muted" style="line-height:1.8; padding-left:18px; margin:8px 0 0">
+            <li>Stack : Node 20, Express, Vue 3 + Vuetify, Vite, PostgreSQL (JSONB), Docker</li>
+            <li>Auth & Sécurité : JWT/SSO, rôles, middlewares Express</li>
+            <li>Ops : Linux Debian, Git, CI/CD, Vercel/Netlify</li>
+            <li>+ Projets perso : Unreal Engine, ComfyUI, Python</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projets">
+      <h3>Projets sélectionnés</h3>
+      <p class="lead">Quelques réalisations représentatives. Chaque carte précise le contexte, mon rôle et les résultats.</p>
+      <div class="grid" id="projectsGrid" aria-live="polite"></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="competences">
+      <h3>Compétences</h3>
+      <p class="lead">Technos que j'utilise au quotidien.</p>
+      <div class="skills" id="skills"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="a-propos">
+      <h3>À propos</h3>
+      <div class="about">
+        <div class="card">
+          <p>Je suis développeur full‑stack, orienté produit et qualité. J'aime rendre les systèmes simples à utiliser et faciles à maintenir, en gardant une attention particulière à l'UX et aux performances.</p>
+          <p class="muted">Actuellement en fin d'alternance (BAC+5 EADL). Ouvert aux opportunités à partir de septembre.</p>
+          <div class="stats">
+            <div class="stat"><div class="n">3+ ans</div><div class="muted">d'expérience</div></div>
+            <div class="stat"><div class="n">10+ </div><div class="muted">projets livrés</div></div>
+            <div class="stat"><div class="n">100% </div><div class="muted">orienté impact</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h4 style="margin:0 0 8px">Ce que je peux apporter</h4>
+          <ul class="muted" style="line-height:1.9; padding-left:18px; margin:0">
+            <li>Refonte et structuration d'API (publique/privée), normalisation JSONB</li>
+            <li>Auth JWT (rôles admin/service), middlewares Express propres</li>
+            <li>Front Vue 3 + Vuetify : formulaires complexes, SSR, i18n</li>
+            <li>Automatisation : files de génération, tâches de fond robustes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h3>Contact</h3>
+      <div class="card">
+        <p class="lead">Un projet, une opportunité ? Écrivez‑moi.</p>
+        <div class="row">
+          <a class="btn primary" href="mailto:contact@tuwwix.dev">contact@tuwwix.dev</a>
+          <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/tuwwix">LinkedIn</a>
+          <a class="btn" target="_blank" rel="noreferrer" href="https://github.com/tuwwix">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
+        <span>© <span id="year"></span> Tom Charuel — tuwwix.dev</span>
+        <span class="muted">Construit en HTML/CSS/JS (no framework). Déployé sur GitHub Pages.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Data editable (mets à jour ici) ------------------------------------
+    const PROJECTS = [
+      {
+        title: "Réseau (AireServices)",
+        blurb: "Refonte full‑stack : SSR, SSO JWT, blocs dynamiques, API publique/privée, PostgreSQL JSONB.",
+        chips: ["Vue 3", "Vuetify", "Express", "PostgreSQL", "JWT", "SSR"],
+        demo: "#", // Remplace par l'URL de démo
+        repo: "#", // ou laisse # si privé
+        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Réseau</text></svg>",
+      },
+      {
+        title: "Forge — Génération différée",
+        blurb: "Service de génération asynchrone (priorisation, JWT service, files), communication via API sécurisée.",
+        chips: ["Node 20", "Queues", "JWT Service", "Express"],
+        demo: "#",
+        repo: "#",
+        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Forge</text></svg>",
+      },
+      {
+        title: "Enchères (Spring Boot)",
+        blurb: "Projet école : authentification, gestion d'enchères et offres, vues Thymeleaf.",
+        chips: ["Java", "Spring Boot", "Thymeleaf"],
+        demo: "#",
+        repo: "#",
+        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Enchères</text></svg>",
+      },
+      // Tu peux ajouter d'autres projets ici
+    ];
+
+    const SKILLS = [
+      "Node.js (v20)", "Express", "Vue 3 / Vuetify", "Vite",
+      "PostgreSQL (JSONB)", "Docker", "JWT / SSO", "Linux Debian",
+      "CI/CD", "SSR", "i18n", "REST APIs"
+    ];
+
+    // --- Render --------------------------------------------------------------
+    function el(tag, attrs={}, children=[]) {
+      const node = document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v]) => {
+        if(k === 'class') node.className = v; else if(k.startsWith('on') && typeof v === 'function') node.addEventListener(k.substring(2), v); else if (k === 'html') node.innerHTML = v; else node.setAttribute(k, v);
+      });
+      (Array.isArray(children) ? children : [children]).filter(Boolean).forEach(c => node.append(c));
+      return node;
+    }
+
+    const grid = document.getElementById('projectsGrid');
+    PROJECTS.forEach(p => {
+      const card = el('article', {class:'card project'} , [
+        el('div', {class:'thumb'}, [el('img', {src:p.thumb, alt:`Aperçu ${p.title}`, style:'max-width:100%; max-height:100%; object-fit:cover; border-radius:10px'})]),
+        el('h4', {}, p.title),
+        el('p', {class:'muted'}, p.blurb),
+        el('div', {class:'chips'}, p.chips.map(c => el('span', {class:'chip'}, c))),
+        el('div', {class:'row'}, [
+          el('a', {href:p.demo || '#', class:'btn', target:'_blank', rel:'noreferrer'}, 'Démo'),
+          el('a', {href:p.repo || '#', class:'btn ghost', target:'_blank', rel:'noreferrer'}, 'Code')
+        ])
+      ]);
+      grid.append(card);
+    });
+
+    const skills = document.getElementById('skills');
+    SKILLS.forEach(s => skills.append(el('span', {class:'skill'}, s)));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    }));
+  </script>
 </body>
 </html>
