@@ -8,64 +8,86 @@
   <meta name="color-scheme" content="light dark">
   <style>
     :root{
-      --bg: #0b0c10;
-      --panel: #121318;
-      --text: #e6e7eb;
-      --muted:#9aa0a6;
-      --primary:#4f8cff;
-      --border: #1c1d24;
-      --chip:#1a2340;
-      --good:#24c17c;
-      --warn:#ffb020;
-      --danger:#ff6b6b;
+      /* Palette douce / pastels */
+      --bg: #f7f8fc;
+      --panel: #ffffff;
+      --panel-strong: #ffffff;
+      --text: #1b1f2a;
+      --muted:#666e7a;
+      --primary:#6aa9ff;  /* bleu pastel */
+      --accent:#ffb6c1;   /* rose pastel */
+      --mint:#a8e6cf;     /* vert pastel */
+      --border: #e7ebf3;
+      --chip:#eef4ff;
     }
-    @media (prefers-color-scheme: light){
+    @media (prefers-color-scheme: dark){
       :root{
-        --bg:#f7f8fb; --panel:#fff; --text:#101217; --muted:#62676f; --border:#e8e9ee; --chip:#e9f0ff;
+        --bg:#0f1116; --panel:#14171f; --panel-strong:#151922; --text:#e9ebf2; --muted:#9aa3af; --border:#212635; --chip:#1b2240; --primary:#7fb4ff; --accent:#ff9ec0; --mint:#7fdcc3;
       }
     }
     *{box-sizing:border-box}
     html,body{margin:0}
-    body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--text);}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg), #fff 60%);
+      min-height:100svh;
+    }
     a{color:inherit}
-    .container{max-width:1100px; margin:0 auto; padding:0 20px}
-    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px); background:color-mix(in oklab, var(--bg) 70%, transparent); border-bottom:1px solid var(--border); z-index:20}
-    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
-    .brand{display:flex; gap:10px; align-items:center}
-    .avatar{width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, var(--primary), #9f7aea)}
-    .brand h1{font-size:16px; margin:0}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; border-bottom:1px solid var(--border);
+      backdrop-filter:saturate(160%) blur(8px);
+      background: color-mix(in oklab, var(--panel), transparent 10%);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:68px}
+    .brand{display:flex; gap:14px; align-items:center}
+    .avatar{width:42px; height:42px; border-radius:12px; border:1px solid var(--border); overflow:hidden; background:var(--panel)}
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+    .brand h1{font-size:16px; margin:0; letter-spacing:.3px}
     .links{display:flex; gap:16px}
     .links a{font-size:14px; text-decoration:none; color:var(--muted)}
     .links a:hover{color:var(--text)}
-    .btn{display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel)}
-    .btn.primary{background:var(--primary); color:white; border-color:color-mix(in oklab, var(--primary), black 15%)}
+
+    /* Buttons */
+    .btn{display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:10px 14px; border-radius:14px; border:1px solid var(--border); background:var(--panel)}
+    .btn.primary{background:linear-gradient(180deg, color-mix(in oklab, var(--primary), white 25%), var(--primary)); color:#0b0d12; border-color:color-mix(in oklab, var(--primary), black 12%)}
     .btn.ghost{background:transparent}
 
     /* HERO */
-    .hero{padding:64px 0 32px}
-    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:28px}
-    .hero h2{font-size:36px; line-height:1.1; margin:0 0 12px}
+    .hero{padding:72px 0 32px}
+    .hero-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:28px}
+    .hero h2{font-size:36px; line-height:1.15; margin:0 0 12px}
     .muted{color:var(--muted)}
     .hero .actions{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
-    .card{background:var(--panel); border:1px solid var(--border); border-radius:18px; padding:18px}
+    .card{background:var(--panel-strong); border:1px solid var(--border); border-radius:18px; padding:18px; box-shadow: 0 8px 24px #00000014}
 
     /* SECTIONS */
-    section{padding:26px 0}
+    section{padding:32px 0}
     section h3{font-size:22px; margin:0 0 6px}
     section p.lead{margin-top:0; color:var(--muted)}
 
-    /* PROJECTS */
-    .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px}
+    /* PROJECTS (images agrandies) */
+    .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px}
     .project{overflow:hidden; display:flex; flex-direction:column}
-    .thumb{aspect-ratio: 16/9; border-radius:12px; background:#0f121a; border:1px solid var(--border); display:grid; place-items:center; color:var(--muted); font-size:14px}
-    .project h4{margin:12px 0 4px; font-size:16px}
+    .thumb{aspect-ratio: 4/3; border-radius:16px; background:#eef2ff; border:1px solid var(--border); display:grid; place-items:center; color:var(--muted); font-size:14px}
+    .project h4{margin:14px 0 6px; font-size:18px}
     .chips{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px}
-    .chip{font-size:12px; padding:6px 10px; border-radius:999px; background:var(--chip); color:color-mix(in oklab, var(--primary), var(--text) 40%)}
+    .chip{font-size:12px; padding:7px 11px; border-radius:999px; background:var(--chip); color:color-mix(in oklab, var(--primary), var(--text) 40%)}
     .row{display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Carousel */
+    .carousel{position:relative; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:#eef2ff}
+    .slides{display:flex; transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+    .slide{min-width:100%; aspect-ratio:4/3; background:#eef2ff; display:grid; place-items:center}
+    .slide img{width:100%; height:100%; object-fit:cover}
+    .ctrl{position:absolute; inset:auto 10px 10px auto; display:flex; gap:8px}
+    .ctrl button{border:1px solid var(--border); background:var(--panel); color:var(--text); border-radius:999px; width:38px; height:38px; cursor:pointer}
 
     /* SKILLS */
     .skills{display:flex; flex-wrap:wrap; gap:8px}
-    .skill{padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:linear-gradient(180deg, color-mix(in oklab, var(--panel), white 2%), var(--panel))}
+    .skill{padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:linear-gradient(180deg, color-mix(in oklab, var(--panel), white 3%), var(--panel))}
 
     /* ABOUT */
     .about{display:grid; grid-template-columns: 1fr 1fr; gap:18px}
@@ -78,12 +100,11 @@
 
     /* RESPONSIVE */
     @media (max-width: 980px){
-      .grid{grid-template-columns:1fr 1fr}
+      .grid{grid-template-columns:1fr}
       .hero-grid{grid-template-columns:1fr}
       .about{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
-      .grid{grid-template-columns:1fr}
       .hero h2{font-size:28px}
     }
   </style>
@@ -92,7 +113,7 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="avatar" aria-hidden="true"></div>
+        <div class="avatar" aria-hidden="true"><img src="avatar.png" alt="Avatar de Tom"/></div>
         <h1>Tom Charuel</h1>
       </div>
       <nav class="links">
@@ -110,11 +131,11 @@
       <div class="hero-grid">
         <div class="card">
           <p class="muted">Développeur Full‑Stack</p>
-          <h2>Je conçois des applis web robustes en <span style="color:var(--primary)">Node.js</span>, <span style="color:var(--primary)">Vue 3</span> et <span style="color:var(--primary)">PostgreSQL</span>.</h2>
-          <p class="muted">3 ans d'alternance en TPE/PME (AireServices). Focus SSR, JWT/SSO, blocs dynamiques, APIs publiques/privées. Objectif : expérience fluide & maintenance simple.</p>
+          <h2>Applications web robustes en Node.js, Vue 3 et PostgreSQL — UX rapide et maintenance simple.</h2>
+          <p class="muted">4 ans d'expérience dont 3 en alternance (AireServices). Focus SSR, JWT/SSO, blocs dynamiques, APIs publiques/privées.</p>
           <div class="actions">
             <a class="btn primary" href="#contact">Me contacter</a>
-            <a class="btn ghost" href="./cv.pdf" target="_blank" rel="noreferrer">Télécharger le CV (PDF)</a>
+            <a class="btn ghost" href="./charuel_tom_CV.pdf" target="_blank" rel="noreferrer">Télécharger le CV (PDF)</a>
             <a class="btn" href="https://github.com/tuwwix" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
@@ -122,9 +143,9 @@
           <h3>En bref</h3>
           <ul class="muted" style="line-height:1.8; padding-left:18px; margin:8px 0 0">
             <li>Stack : Node 20, Express, Vue 3 + Vuetify, Vite, PostgreSQL (JSONB), Docker</li>
-            <li>Auth & Sécurité : JWT/SSO, rôles, middlewares Express</li>
+            <li>Auth & sécurité : JWT/SSO, rôles, middlewares Express</li>
             <li>Ops : Linux Debian, Git, CI/CD, Vercel/Netlify</li>
-            <li>+ Projets perso : Unreal Engine, ComfyUI, Python</li>
+            <li>Analytics : intégration Google Analytics 4 (avec consentement)</li>
           </ul>
         </div>
       </div>
@@ -133,14 +154,14 @@
     <!-- PROJECTS -->
     <section id="projets">
       <h3>Projets sélectionnés</h3>
-      <p class="lead">Quelques réalisations représentatives. Chaque carte précise le contexte, mon rôle et les résultats.</p>
+      <p class="lead">Chaque carte précise le contexte, mon rôle et les résultats.</p>
       <div class="grid" id="projectsGrid" aria-live="polite"></div>
     </section>
 
     <!-- SKILLS -->
     <section id="competences">
       <h3>Compétences</h3>
-      <p class="lead">Technos que j'utilise au quotidien.</p>
+      <p class="lead">Technologies utilisées au quotidien.</p>
       <div class="skills" id="skills"></div>
     </section>
 
@@ -149,21 +170,21 @@
       <h3>À propos</h3>
       <div class="about">
         <div class="card">
-          <p>Je suis développeur full‑stack, orienté produit et qualité. J'aime rendre les systèmes simples à utiliser et faciles à maintenir, en gardant une attention particulière à l'UX et aux performances.</p>
-          <p class="muted">Actuellement en fin d'alternance (BAC+5 EADL). Ouvert aux opportunités à partir de septembre.</p>
+          <p>Je suis développeur full‑stack, orienté produit et qualité. J'aime concevoir des systèmes simples à utiliser et faciles à maintenir, tout en respectant la charte graphique du client.</p>
+          <p class="muted">Actuellement en fin d'alternance (BAC+5 EADL). Ouvert aux opportunités pour gagner en expérience et aider les entreprises à améliorer leur visibilité avec des supports de présentation crédibles.</p>
           <div class="stats">
-            <div class="stat"><div class="n">3+ ans</div><div class="muted">d'expérience</div></div>
-            <div class="stat"><div class="n">10+ </div><div class="muted">projets livrés</div></div>
+            <div class="stat"><div class="n">4+ ans</div><div class="muted">d'expérience</div></div>
+            <div class="stat"><div class="n">5+ </div><div class="muted">projets livrés (et de nombreux projets personnels)</div></div>
             <div class="stat"><div class="n">100% </div><div class="muted">orienté impact</div></div>
           </div>
         </div>
         <div class="card">
-          <h4 style="margin:0 0 8px">Ce que je peux apporter</h4>
+          <h4 style="margin:0 0 8px">Ce que j'apporte</h4>
           <ul class="muted" style="line-height:1.9; padding-left:18px; margin:0">
-            <li>Refonte et structuration d'API (publique/privée), normalisation JSONB</li>
-            <li>Auth JWT (rôles admin/service), middlewares Express propres</li>
-            <li>Front Vue 3 + Vuetify : formulaires complexes, SSR, i18n</li>
-            <li>Automatisation : files de génération, tâches de fond robustes</li>
+            <li>Refonte et structuration d'API (publique/privée) — JSONB ou SQL classique</li>
+            <li>Authentification (admin/utilisateur), sécurité JWT (rôles), middlewares Express</li>
+            <li>Front Vue 3 + Vuetify : formulaires complexes, SSR si nécessaire, i18n</li>
+            <li>Sites web CRUD : création, modification, suppression et affichage</li>
           </ul>
         </div>
       </div>
@@ -173,9 +194,9 @@
     <section id="contact">
       <h3>Contact</h3>
       <div class="card">
-        <p class="lead">Un projet, une opportunité ? Écrivez‑moi.</p>
+        <p class="lead">Un projet ? Un manque de visibilité ? Une opportunité ? Écrivez‑moi.</p>
         <div class="row">
-          <a class="btn primary" href="mailto:contact@tuwwix.dev">contact@tuwwix.dev</a>
+          <a class="btn primary" href="mailto:tomcharuel@gmail.com">tomcharuel@gmail.com</a>
           <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/tuwwix">LinkedIn</a>
           <a class="btn" target="_blank" rel="noreferrer" href="https://github.com/tuwwix">GitHub</a>
         </div>
@@ -187,48 +208,43 @@
     <div class="container">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
         <span>© <span id="year"></span> Tom Charuel — tuwwix.dev</span>
-        <span class="muted">Construit en HTML/CSS/JS (no framework). Déployé sur GitHub Pages.</span>
       </div>
     </div>
   </footer>
 
   <script>
-    // --- Data editable (mets à jour ici) ------------------------------------
+    // --- Data ---------------------------------------------------------------
     const PROJECTS = [
       {
-        title: "Réseau (AireServices)",
-        blurb: "Refonte full‑stack : SSR, SSO JWT, blocs dynamiques, API publique/privée, PostgreSQL JSONB.",
+        title: "Réseau (AireServices) — en cours de développement",
+        blurb: "Refonte full‑stack avec SSR, SSO JWT, blocs dynamiques, API publique/privée, PostgreSQL JSONB, contenu généré par IA.",
         chips: ["Vue 3", "Vuetify", "Express", "PostgreSQL", "JWT", "SSR"],
-        demo: "#", // Remplace par l'URL de démo
-        repo: "#", // ou laisse # si privé
-        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Réseau</text></svg>",
+        demo: "https://reseau.qipeo.com",
+        images: ["reseau-1.png","reseau-2.png","reseau-3.png","reseau-4.png","reseau-5.png"]
       },
       {
-        title: "Forge — Génération différée",
-        blurb: "Service de génération asynchrone (priorisation, JWT service, files), communication via API sécurisée.",
-        chips: ["Node 20", "Queues", "JWT Service", "Express"],
-        demo: "#",
-        repo: "#",
-        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Forge</text></svg>",
-      },
-      {
-        title: "Enchères (Spring Boot)",
-        blurb: "Projet école : authentification, gestion d'enchères et offres, vues Thymeleaf.",
+        title: "Enchères (projet école) — Spring Boot",
+        blurb: "Application d'enchères : authentification, création/offres, gestion des lots, vues Thymeleaf.",
         chips: ["Java", "Spring Boot", "Thymeleaf"],
-        demo: "#",
-        repo: "#",
-        thumb: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%23121318'/><text x='50%' y='50%' fill='%239aa0a6' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22'>Capture projet — Enchères</text></svg>",
+        images: ["enchere-1.png","enchere-2.png","enchere-3.png"]
       },
-      // Tu peux ajouter d'autres projets ici
+      {
+        title: "Sortir.com — Symfony",
+        blurb: "Plateforme d'événements/sorties : gestion des utilisateurs, inscriptions, back‑office.",
+        chips: ["Symfony", "Twig", "Doctrine"],
+        images: ["sortir-1.png","sortir-2.png","sortir-3.png"]
+      }
     ];
 
     const SKILLS = [
-      "Node.js (v20)", "Express", "Vue 3 / Vuetify", "Vite",
-      "PostgreSQL (JSONB)", "Docker", "JWT / SSO", "Linux Debian",
-      "CI/CD", "SSR", "i18n", "REST APIs"
+      "Node.js (v20)", "Express", "JavaScript", "Vue 3 / Vuetify", "Vite",
+      "PostgreSQL (+ JSONB)", "MariaDB", "Docker",
+      "Symfony", "Composer", "Java / Spring Boot", "Thymeleaf",
+      "JWT / SSO", "Linux Debian", "CI/CD", "SSR", "i18n", "REST APIs",
+      "Google Analytics 4", "Tag Manager", "Wix", "Bases en Python/C/C++/Flutter/Kotlin"
     ];
 
-    // --- Render --------------------------------------------------------------
+    // --- DOM helpers --------------------------------------------------------
     function el(tag, attrs={}, children=[]) {
       const node = document.createElement(tag);
       Object.entries(attrs).forEach(([k,v]) => {
@@ -238,24 +254,54 @@
       return node;
     }
 
+    // --- Projects render ----------------------------------------------------
     const grid = document.getElementById('projectsGrid');
     PROJECTS.forEach(p => {
-      const card = el('article', {class:'card project'} , [
-        el('div', {class:'thumb'}, [el('img', {src:p.thumb, alt:`Aperçu ${p.title}`, style:'max-width:100%; max-height:100%; object-fit:cover; border-radius:10px'})]),
-        el('h4', {}, p.title),
-        el('p', {class:'muted'}, p.blurb),
-        el('div', {class:'chips'}, p.chips.map(c => el('span', {class:'chip'}, c))),
-        el('div', {class:'row'}, [
-          el('a', {href:p.demo || '#', class:'btn', target:'_blank', rel:'noreferrer'}, 'Démo'),
-          el('a', {href:p.repo || '#', class:'btn ghost', target:'_blank', rel:'noreferrer'}, 'Code')
-        ])
-      ]);
-      grid.append(card);
+      const hasCarousel = Array.isArray(p.images) && p.images.length > 1;
+      if(hasCarousel){
+        // Carousel card
+        const slides = el('div', {class:'slides'} , p.images.map(src => {
+          const s = el('div', {class:'slide'});
+          s.append(el('img', {src, alt:`${p.title} - capture`}));
+          return s;
+        }));
+        let idx = 0;
+        const card = el('article', {class:'card project'} , [
+          el('div', {class:'carousel'}, [
+            slides,
+            el('div', {class:'ctrl'}, [
+              el('button', {onclick: () => { idx = (idx - 1 + p.images.length) % p.images.length; slides.style.transform = `translateX(-${idx*100}%)`; }, 'aria-label':'Précédent'}, '‹'),
+              el('button', {onclick: () => { idx = (idx + 1) % p.images.length; slides.style.transform = `translateX(-${idx*100}%)`; }, 'aria-label':'Suivant'}, '›')
+            ])
+          ]),
+          el('h4', {}, p.title),
+          el('p', {class:'muted'}, p.blurb),
+          el('div', {class:'chips'}, p.chips.map(c => el('span', {class:'chip'}, c))),
+          el('div', {class:'row'}, [
+            p.demo ? el('a', {href:p.demo, class:'btn', target:'_blank', rel:'noreferrer'}, 'Voir le site') : null
+          ])
+        ]);
+        grid.append(card);
+      } else {
+        // Standard card (avec image unique si présente)
+        const visual = (p.images && p.images.length === 1)
+          ? el('div', {class:'thumb'}, [el('img', {src:p.images[0], alt:`Aperçu ${p.title}`, style:'width:100%; height:100%; object-fit:cover; border-radius:12px'})])
+          : el('div', {class:'thumb'}, 'Aperçu indisponible');
+        const card = el('article', {class:'card project'} , [
+          visual,
+          el('h4', {}, p.title),
+          el('p', {class:'muted'}, p.blurb),
+          el('div', {class:'chips'}, p.chips.map(c => el('span', {class:'chip'}, c)))
+        ]);
+        grid.append(card);
+      }
     });
 
+    // --- Skills render ------------------------------------------------------
     const skills = document.getElementById('skills');
     SKILLS.forEach(s => skills.append(el('span', {class:'skill'}, s)));
 
+    // --- Misc ---------------------------------------------------------------
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Smooth scroll for internal anchors
