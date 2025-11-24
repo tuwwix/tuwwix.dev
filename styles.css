@@ -1,0 +1,396 @@
+:root {
+  /* Palette douce / pastels */
+  --bg: #f7f8fc;
+  --panel: #ffffff;
+  --panel-strong: #ffffff;
+  --text: #1b1f2a;
+  --muted: #666e7a;
+  --primary: #6aa9ff;  /* bleu pastel */
+  --accent: #ffb6c1;   /* rose pastel */
+  --mint: #a8e6cf;     /* vert pastel */
+  --border: #e7ebf3;
+  --chip: #eef4ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1116;
+    --panel: #14171f;
+    --panel-strong: #151922;
+    --text: #e9ebf2;
+    --muted: #9aa3af;
+    --border: #212635;
+    --chip: #1b2240;
+    --primary: #7fb4ff;
+    --accent: #ff9ec0;
+    --mint: #7fdcc3;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg), #fff 60%);
+  min-height: 100svh;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(160%) blur(8px);
+  background: color-mix(in oklab, var(--panel), transparent 10%);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.brand h1 {
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+.links a {
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.links a:hover {
+  color: var(--text);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.btn.primary {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--primary), white 25%),
+    var(--primary)
+  );
+  color: #0b0d12;
+  border-color: color-mix(in oklab, var(--primary), black 12%);
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+/* HERO */
+.hero {
+  padding: 72px 0 32px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+}
+
+.hero h2 {
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.hero .actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 8px 24px #00000014;
+}
+
+/* SECTIONS */
+section {
+  padding: 32px 0;
+}
+
+section h3 {
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+section p.lead {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+/* PROJECTS (images agrandies) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.project {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  background: #eef2ff;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.project h4 {
+  margin: 14px 0 6px;
+  font-size: 18px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.chip {
+  font-size: 12px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: color-mix(in oklab, var(--primary), var(--text) 40%);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Carousel */
+.carousel {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #eef2ff;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.slide {
+  min-width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #eef2ff;
+  display: grid;
+  place-items: center;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ctrl {
+  position: absolute;
+  inset: auto 10px 10px auto;
+  display: flex;
+  gap: 8px;
+}
+
+.ctrl button {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+}
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--panel), white 3%),
+    var(--panel)
+  );
+}
+
+/* ABOUT */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
+  background: var(--panel);
+}
+
+.stat .n {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* FOOTER */
+footer {
+  padding: 36px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero h2 {
+    font-size: 28px;
+  }
+}
+
+/* Tarifs page styles */
+.pricing-section .pricing-hero{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.pricing-hero.card{padding:18px;border-radius:14px}
+.pricing-section h3{margin-top:0}
+.pricing{width:100%; border-collapse:separate; border-spacing:0; box-shadow:0 6px 20px #00000012; border-radius:12px; overflow:hidden}
+.pricing thead tr{background:color-mix(in oklab, var(--primary), var(--panel) 85%)}
+.pricing th,.pricing td{padding:14px 12px; text-align:left}
+.pricing tbody tr{background:var(--panel)}
+.pricing tbody tr:nth-child(even){background:color-mix(in oklab, var(--panel), var(--chip) 45%)}
+.pricing tbody tr td{border-bottom:1px solid var(--border)}
+.pricing .price{font-weight:700; color:var(--primary); white-space:nowrap}
+.pricing .muted-small{color:var(--muted);font-size:0.95rem}
+.note{background:color-mix(in oklab, var(--accent), transparent 85%); border-left:4px solid var(--accent); padding:12px 14px; border-radius:8px; margin-top:10px}
+
+@media (max-width:980px){
+  .pricing thead{display:none}
+  .pricing tr{display:block;margin-bottom:12px;border-radius:10px;overflow:hidden}
+  .pricing td{display:flex;justify-content:space-between;border-bottom:0;padding:12px;background:var(--panel)}
+  .pricing td::before{content:attr(data-label);font-weight:600;color:var(--muted);margin-right:8px}
+}
+
+/* Pricing blocks for clear separation */
+.pricing-block{margin:18px 0;padding:16px;border-radius:12px;background:linear-gradient(180deg,color-mix(in oklab,var(--panel),white 2%),var(--panel-strong));box-shadow:0 8px 20px #00000010;border:1px solid var(--border);display:block}
+.pricing-block .heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.pricing-block .heading h4{margin:0}
+.pricing-block .tag{padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.9rem}
+.pricing-block.block-maquettes{border-left:6px solid var(--primary)}
+.pricing-block.block-sites{border-left:6px solid color-mix(in oklab,var(--primary),var(--accent) 30%)}
+.pricing-block.block-applications{border-left:6px solid var(--mint)}
+.pricing-block.block-options{border-left:6px solid var(--accent)}
+
+/* Make pricing tables fit inside blocks */
+.pricing-block .pricing{box-shadow:none;border-radius:8px;overflow:hidden}
+
+/* Navbar contact button smaller in nav */
+.links a.btn{padding:8px 12px}
