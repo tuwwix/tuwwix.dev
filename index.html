@@ -1,110 +1,811 @@
-<!doctype html>
+<!-- index.html -->
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <title>Tom.dev – Développeur Full-Stack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tom Charuel — Portfolio</title>
-  <meta name="description" content="Portfolio de Tom Charuel — Développeur Full‑Stack (Node.js, Vue 3, PostgreSQL)." />
-  <meta name="color-scheme" content="light dark">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #22c55e;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .toast.hide {
+      animation: slideOut 0.3s ease-out forwards;
+    }
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <div class="avatar" aria-hidden="true"><img src="avatar.png" alt="Avatar de Tom"/></div>
-        <h1>Tom Charuel</h1>
-      </div>
-      <nav class="links">
-        <a href="#projets">Projets</a>
-        <a href="#competences">Compétences</a>
-        <a href="#a-propos">À propos</a>
-        <a class="btn primary" href="mailto:tom.dev.eadl@gmail.com">Contact</a>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" style="display: none;">
+    ✅ Message envoyé avec succès !
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <button class="logo" data-scroll-target="hero">
+        <img src="avatar.png" class="logo-icon">
+        <span class="logo-text">Tom.Dev</span>
+      </button>
+
+      <nav class="nav-links">
+        <button class="nav-link" data-scroll-target="skills">Compétences</button>
+        <button class="nav-link" data-scroll-target="experience">Expérience</button>
+        <button class="nav-link" data-scroll-target="services">Services &amp; Tarifs</button>
+        <button class="btn btn-primary btn-sm" data-scroll-target="contact">
+          Contact
+        </button>
       </nav>
+
+      <button
+        class="nav-toggle"
+        id="mobile-menu-toggle"
+        aria-label="Ouvrir le menu"
+      >
+        ☰
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <button class="mobile-link" data-scroll-target="skills">Compétences</button>
+      <button class="mobile-link" data-scroll-target="experience">Expérience</button>
+      <button class="mobile-link" data-scroll-target="services">Services &amp; Tarifs</button>
+      <button class="btn btn-primary btn-full" data-scroll-target="contact">
+        Contact
+      </button>
     </div>
   </header>
 
-  <main class="container">
+  <main>
     <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="card">
-          <p class="muted">Développeur Full‑Stack</p>
-          <h2>Applications web robustes en Node.js, Vue 3 et PostgreSQL — UX rapide et maintenance simple.</h2>
-          <p class="muted">4 ans d'expérience dont 3 en alternance (AireServices). Focus SSR, JWT/SSO, blocs dynamiques, APIs publiques/privées.</p>
-          <div class="actions">
-            <a class="btn primary" href="#contact">Me contacter</a>
-            <a class="btn ghost" href="./charuel_tom_CV.pdf" target="_blank" rel="noreferrer">Télécharger le CV (PDF)</a>
+    <section id="hero" class="section hero">
+      <div class="hero-bg">
+        <img
+          src="https://images.unsplash.com/photo-1707528041466-83a325f01a3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzYzOTU2MTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Developer workspace"
+        />
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-inner">
+          <div class="hero-pill">
+            <p>Développeur Full-Stack Disponible</p>
           </div>
-        </div>
-        <div class="card">
-          <h3>En bref</h3>
-          <ul class="muted" style="line-height:1.8; padding-left:18px; margin:8px 0 0">
-            <li>Stack : Node 20, Express, Vue 3 + Vuetify, Vite, PostgreSQL (JSONB), Docker</li>
-            <li>Auth & sécurité : JWT/SSO, rôles, middlewares Express</li>
-            <li>Ops : Linux Debian, Git, CI/CD, Vercel/Netlify</li>
-            <li>Analytics : intégration Google Analytics 4 (avec consentement)</li>
-          </ul>
+
+          <h1>
+            Applications Web
+            <span class="text-primary">Robustes</span> et
+            <span class="text-primary">Performantes</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Développeur Full-Stack spécialisé en Node.js, Vue 3 et PostgreSQL.
+            Je crée des applications web sur-mesure avec une UX rapide et une maintenance simple.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-scroll-target="contact">
+              Me Contacter
+            </button>
+            <button class="btn btn-outline" data-scroll-target="services">
+              Voir les Tarifs →
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <p class="stat-number">4+</p>
+              <p class="stat-label">Années d'Expérience</p>
+            </div>
+            <div class="stat">
+              <p class="stat-number">20+</p>
+              <p class="stat-label">Technologies Maîtrisées</p>
+            </div>
+            <div class="stat">
+              <p class="stat-number">100%</p>
+              <p class="stat-label">Sur-Mesure</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projets">
-      <h3>Projets sélectionnés</h3>
-      <p class="lead">Chaque carte précise le contexte, mon rôle et les résultats.</p>
-      <div class="grid" id="projectsGrid" aria-live="polite"></div>
-    </section>
-
     <!-- SKILLS -->
-    <section id="competences">
-      <h3>Compétences</h3>
-      <p class="lead">Technologies utilisées au quotidien.</p>
-      <div class="skills" id="skills"></div>
-    </section>
+    <section id="skills" class="section section-muted">
+      <div class="container">
+        <div class="section-header">
+          <h2>Stack Technique <span class="text-primary">Complète</span></h2>
+          <p class="section-subtitle">
+            Une expertise variée pour répondre à tous vos besoins en développement web
+          </p>
+        </div>
 
-    <!-- ABOUT -->
-    <section id="a-propos">
-      <h3>À propos</h3>
-      <div class="about">
-        <div class="card">
-          <p>Je suis développeur full‑stack, orienté produit et qualité. J'aime concevoir des systèmes simples à utiliser et faciles à maintenir, tout en respectant la charte graphique du client.</p>
-          <p class="muted">Actuellement en fin d'alternance (BAC+5 EADL). Ouvert aux opportunités pour gagner en expérience et aider les entreprises à améliorer leur visibilité avec des supports de présentation crédibles.</p>
-          <div class="stats">
-            <div class="stat"><div class="n">4+ ans</div><div class="muted">d'expérience</div></div>
-            <div class="stat"><div class="n">5+ </div><div class="muted">projets livrés (et de nombreux projets personnels)</div></div>
-            <div class="stat"><div class="n">100% </div><div class="muted">orienté impact</div></div>
+        <div class="grid grid-3 skills-grid">
+          <!-- Backend & APIs -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--blue">B</div>
+                <h3>Backend &amp; APIs</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">Node.js (v20)</span>
+                <span class="badge badge-secondary">Express</span>
+                <span class="badge badge-secondary">JavaScript</span>
+                <span class="badge badge-secondary">REST APIs</span>
+                <span class="badge badge-secondary">SSR</span>
+                <span class="badge badge-secondary">Java / Spring Boot</span>
+                <span class="badge badge-secondary">Symfony</span>
+                <span class="badge badge-secondary">Composer</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Frontend -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--green">F</div>
+                <h3>Frontend</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">Vue 3 / Vuetify</span>
+                <span class="badge badge-secondary">Vite</span>
+                <span class="badge badge-secondary">Thymeleaf</span>
+                <span class="badge badge-secondary">i18n</span>
+                <span class="badge badge-secondary">Responsive Design</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bases de Données -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--purple">DB</div>
+                <h3>Bases de Données</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">PostgreSQL (+ JSONB)</span>
+                <span class="badge badge-secondary">MariaDB</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Sécurité & Auth -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--red">S</div>
+                <h3>Sécurité &amp; Auth</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">JWT / SSO</span>
+                <span class="badge badge-secondary">Rôles &amp; Permissions</span>
+                <span class="badge badge-secondary">Middlewares Express</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- DevOps & Outils -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--orange">D</div>
+                <h3>DevOps &amp; Outils</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">Docker</span>
+                <span class="badge badge-secondary">Linux Debian</span>
+                <span class="badge badge-secondary">CI/CD</span>
+                <span class="badge badge-secondary">Git</span>
+                <span class="badge badge-secondary">Vercel/Netlify</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Analytics & CMS -->
+          <article class="card card-hover">
+            <div class="card-content">
+              <div class="card-header-row">
+                <div class="skill-icon skill-icon--cyan">A</div>
+                <h3>Analytics &amp; CMS</h3>
+              </div>
+              <div class="badge-list">
+                <span class="badge badge-secondary">Google Analytics 4</span>
+                <span class="badge badge-secondary">Tag Manager</span>
+                <span class="badge badge-secondary">Wix</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="skills-extra">
+          <p class="text-muted small">Également des bases en :</p>
+          <div class="badge-list center">
+            <span class="badge badge-outline">Python</span>
+            <span class="badge badge-outline">C</span>
+            <span class="badge badge-outline">C++</span>
+            <span class="badge badge-outline">Flutter</span>
+            <span class="badge badge-outline">Kotlin</span>
           </div>
         </div>
-        <div class="card">
-          <h4 style="margin:0 0 8px">Ce que j'apporte</h4>
-          <ul class="muted" style="line-height:1.9; padding-left:18px; margin:0">
-            <li>Refonte et structuration d'API (publique/privée) — JSONB ou SQL classique</li>
-            <li>Authentification (admin/utilisateur), sécurité JWT (rôles), middlewares Express</li>
-            <li>Front Vue 3 + Vuetify : formulaires complexes, SSR si nécessaire, i18n</li>
-            <li>Sites web CRUD : création, modification, suppression et affichage</li>
-          </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2><span class="text-primary">4 Ans</span> d'Expérience</h2>
+          <p class="section-subtitle">
+            Dont 3 années en alternance chez AireServices
+          </p>
+        </div>
+
+        <div class="grid experience-grid">
+          <div class="experience-left">
+            <article class="card card-primary-soft">
+              <div class="card-content">
+                <div class="experience-header">
+                  <div class="experience-icon">💼</div>
+                  <div>
+                    <h3>Alternance chez AireServices</h3>
+                    <p class="text-muted">3 ans d'expérience intensive</p>
+                  </div>
+                </div>
+                <ul class="experience-list">
+                  <li>• Développement d'applications web full-stack</li>
+                  <li>• Mise en place de systèmes d'authentification JWT/SSO</li>
+                  <li>• Création d'APIs REST publiques et privées</li>
+                  <li>• Intégration de blocs dynamiques et CMS</li>
+                </ul>
+              </div>
+            </article>
+
+            <div class="experience-highlights">
+              <div class="highlight">
+                <div class="highlight-icon">🎯</div>
+                <div>
+                  <h4>Focus Technique</h4>
+                  <p class="text-muted">
+                    SSR, JWT/SSO, blocs dynamiques, APIs publiques/privées
+                  </p>
+                </div>
+              </div>
+              <div class="highlight">
+                <div class="highlight-icon">⚡</div>
+                <div>
+                  <h4>Performance</h4>
+                  <p class="text-muted">
+                    Applications rapides avec UX optimisée et maintenance simplifiée
+                  </p>
+                </div>
+              </div>
+              <div class="highlight">
+                <div class="highlight-icon">🛡️</div>
+                <div>
+                  <h4>Sécurité</h4>
+                  <p class="text-muted">
+                    Authentification robuste avec rôles et middlewares Express
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-right">
+            <div class="experience-image-wrapper">
+              <div class="experience-image-shadow"></div>
+              <figure class="experience-image">
+                <img
+                  src="https://images.unsplash.com/photo-1643116774075-acc00caa9a7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMGNvZGV8ZW58MXx8fHwxNzYzOTg3NTgyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Web development"
+                />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section section-muted">
+      <div class="container">
+        <div class="section-header">
+          <h2>Services &amp; <span class="text-primary">Tarifs 2025</span></h2>
+          <p class="section-subtitle">
+            Tarifs indicatifs pour un développement professionnel sur-mesure
+          </p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <div class="tabs-nav">
+            <button
+              class="tabs-trigger active"
+              data-tab-target="design"
+            >
+              🎨 Design
+            </button>
+            <button
+              class="tabs-trigger"
+              data-tab-target="vitrine"
+            >
+              🌐 Vitrines
+            </button>
+            <button
+              class="tabs-trigger"
+              data-tab-target="admin"
+            >
+              ⚙️ Sur-Mesure
+            </button>
+            <button
+              class="tabs-trigger"
+              data-tab-target="options"
+            >
+              🛡️ Options
+            </button>
+          </div>
+
+          <!-- Design -->
+          <div
+            class="tabs-content active"
+            data-tab-content="design"
+          >
+            <div class="tabs-section-header">
+              <h3>Design &amp; Maquettes</h3>
+              <p class="text-muted">L'image de marque de votre projet</p>
+            </div>
+
+            <div class="grid grid-2">
+              <article class="card">
+                <div class="card-content">
+                  <h3>Pack "Identité &amp; Accueil"</h3>
+                  <p class="price">À partir de 300 €</p>
+                  <ul class="card-list">
+                    <li>Création de votre identité visuelle (Couleurs, Typographies)</li>
+                    <li>Maquette complète de la Page d'Accueil (Version Ordi &amp; Mobile)</li>
+                    <li>Aperçu interactif avant de commencer à coder</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card-content">
+                  <h3>Design de page spécifique</h3>
+                  <p class="price">100 € / unité</p>
+                  <ul class="card-list">
+                    <li>
+                      Création graphique d'une mise en page unique
+                      (ex : page Équipe, page Réalisations)
+                    </li>
+                    <li>
+                      Note : Les pages simples (Contact, Mentions légales)
+                      sont déjà incluses dans les packs vitrines
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Vitrine -->
+          <div
+            class="tabs-content"
+            data-tab-content="vitrine"
+          >
+            <div class="tabs-section-header">
+              <h3>Sites Vitrines</h3>
+              <p class="text-muted">Votre présence web professionnelle</p>
+            </div>
+
+            <div class="grid grid-2">
+              <!-- Pack Essentiel -->
+              <article class="card">
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">🌐</div>
+                    <div>
+                      <h3>Pack "Essentiel"</h3>
+                      <p class="text-muted small">1 à 4 pages</p>
+                    </div>
+                  </div>
+                  <p class="price">400 € – 900 €</p>
+                  <ul class="card-list">
+                    <li>Site adapté Mobiles et Tablettes (Responsive)</li>
+                    <li>Formulaire de contact fonctionnel</li>
+                    <li>Intégration de vos textes et images</li>
+                  </ul>
+                  <button class="btn btn-outline btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+
+              <!-- Pack Business & SEO -->
+              <article class="card card-featured">
+                <div class="card-featured-badge">
+                  Le Plus Populaire
+                </div>
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">📈</div>
+                    <div>
+                      <h3>Pack "Business &amp; SEO"</h3>
+                      <p class="text-muted small">~10 pages</p>
+                    </div>
+                  </div>
+                  <p class="price">1 000 € – 1 500 €</p>
+                  <ul class="card-list">
+                    <li>Optimisation Google avancée (Structure technique pour le référencement)</li>
+                    <li>Site ultra-rapide (Score performance élevé)</li>
+                    <li>Animations légères pour dynamiser le site</li>
+                  </ul>
+                  <button class="btn btn-primary btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+            </div>
+
+            <article class="card card-extra">
+              <div class="card-content">
+                <h4>Tarifs Additionnels</h4>
+                <div class="grid grid-2">
+                  <div class="extra-line">
+                    <div>
+                      <p class="font-medium">Page supplémentaire</p>
+                      <p class="text-muted small">Prix selon la complexité</p>
+                    </div>
+                    <span class="badge badge-secondary">Dès 60 € / page</span>
+                  </div>
+                  <div class="extra-line">
+                    <div>
+                      <p class="font-medium">Déclinaison de Page</p>
+                      <p class="text-muted small">Réutilisation du modèle existant</p>
+                    </div>
+                    <span class="badge badge-secondary">~20% du prix initial</span>
+                  </div>
+                </div>
+
+                <p class="note">
+                  <strong>Note :</strong>
+                  Hébergement &amp; Nom de domaine à la charge du client
+                  (environ 50 € / an à régler directement chez l'hébergeur OVH).
+                  Je vous assiste gratuitement pour l'ouverture du compte.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Admin -->
+          <div
+            class="tabs-content"
+            data-tab-content="admin"
+          >
+            <div class="tabs-section-header">
+              <h3>Sites Administrables</h3>
+              <p class="text-muted">
+                Pour être autonome dans la gestion de votre site
+              </p>
+            </div>
+
+            <div class="grid grid-2">
+              <!-- Admin Start -->
+              <article class="card">
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">⚙️</div>
+                    <div>
+                      <h3>Pack "Admin Start"</h3>
+                    </div>
+                  </div>
+                  <p class="price">Dès 1 200 €</p>
+                  <ul class="card-list">
+                    <li>Site vitrine complet + 1 seule zone administrable</li>
+                    <li>Exemple : Vous modifiez uniquement le Plat du jour ou vos Horaires</li>
+                    <li>Le reste du site est statique</li>
+                    <li>Module supplémentaire : à partir de 150 € / unité</li>
+                  </ul>
+                  <button class="btn btn-outline btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+
+              <!-- Vitrine Administrable -->
+              <article class="card card-featured">
+                <div class="card-featured-badge">
+                  Recommandé
+                </div>
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">🛠️</div>
+                    <div>
+                      <h3>Vitrine Administrable</h3>
+                    </div>
+                  </div>
+                  <p class="price">Dès 1 800 €</p>
+                  <ul class="card-list">
+                    <li>Site Vitrine + Espace de gestion complet</li>
+                    <li>Vous modifiez vous-même vos textes, actualités ou photos</li>
+                    <li>Développement sur-mesure (Pas de WordPress lourd)</li>
+                  </ul>
+                  <button class="btn btn-primary btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+
+              <!-- Catalogue Produits -->
+              <article class="card">
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">🔎</div>
+                    <div>
+                      <h3>Catalogue Produits</h3>
+                    </div>
+                  </div>
+                  <p class="price">Dès 2 200 €</p>
+                  <ul class="card-list">
+                    <li>Présentation de tous vos produits avec filtres de recherche</li>
+                    <li>Gestion des stocks et fiches produits via votre espace admin</li>
+                    <li>Idéal pour demande de devis (Pas de paiement en ligne)</li>
+                  </ul>
+                  <button class="btn btn-outline btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+
+              <!-- E-commerce Complet -->
+              <article class="card">
+                <div class="card-content">
+                  <div class="card-header-row">
+                    <div class="card-icon">🛒</div>
+                    <div>
+                      <h3>E-commerce Complet</h3>
+                    </div>
+                  </div>
+                  <p class="price">Dès 2 800 €</p>
+                  <ul class="card-list">
+                    <li>Catalogue complet + Panier d'achat</li>
+                    <li>Paiement sécurisé (Carte Bancaire, PayPal...)</li>
+                    <li>Gestion des commandes et factures automatiques</li>
+                  </ul>
+                  <button class="btn btn-outline btn-full" data-scroll-target="contact">
+                    Demander un Devis
+                  </button>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div
+            class="tabs-content"
+            data-tab-content="options"
+          >
+            <div class="tabs-section-header">
+              <h3>Options &amp; Maintenance</h3>
+              <p class="text-muted">
+                Services complémentaires pour votre tranquillité
+              </p>
+            </div>
+
+            <div class="grid grid-3">
+              <article class="card">
+                <div class="card-content">
+                  <h3>Pack Visibilité Google</h3>
+                  <p class="price">150 €</p>
+                  <ul class="card-list">
+                    <li>Inscription sur Google Search Console</li>
+                    <li>Création/Optimisation de votre fiche Google Business (Google Maps)</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card-content">
+                  <h3>Statistiques &amp; RGPD</h3>
+                  <p class="price">100 €</p>
+                  <ul class="card-list">
+                    <li>Installation des statistiques (Google Analytics 4)</li>
+                    <li>Bannière de cookies obligatoire conforme à la loi</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card-content">
+                  <h3>Maintenance Annuelle</h3>
+                  <p class="price">500 € / an</p>
+                  <ul class="card-list">
+                    <li>Gestion technique de votre serveur (Mises à jour, sauvegardes)</li>
+                    <li>
+                      1h d'intervention par mois incluse
+                      (pour changer une image, un texte, une promo...)
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="services-cta">
+          <button class="btn btn-primary" data-scroll-target="contact">
+            Obtenir un Devis Personnalisé
+          </button>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact">
-      <h3>Contact</h3>
-      <div class="card">
-        <p class="lead">Un projet ? Un manque de visibilité ? Une opportunité ? Écrivez‑moi.</p>
-        <div class="row">
-          <a class="btn primary" href="mailto:tom.dev.eadl@gmail.com">tom.dev.eadl@gmail.com</a>
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            Démarrons Votre <span class="text-primary">Projet</span>
+          </h2>
+          <p class="section-subtitle">
+            Contactez-moi pour discuter de votre projet et obtenir un devis personnalisé
+          </p>
+        </div>
+
+        <div class="grid contact-grid">
+          <!-- Formulaire -->
+          <article class="card contact-card">
+            <div class="card-content">
+              <!-- Message de succès -->
+              <div id="contact-success" class="contact-success hidden">
+                <div class="success-icon">✅</div>
+                <h3>Message Envoyé !</h3>
+                <p class="text-muted">
+                  Merci ! Votre message a été envoyé à tom.dev.eadl@gmail.com.
+                  Je vous répondrai dans les plus brefs délais.
+                </p>
+              </div>
+
+              <!-- Form -->
+              <form id="contact-form" class="form">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="name">Nom *</label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Votre nom"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="votre@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="subject">Sujet</label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    placeholder="Sujet de votre demande"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message *</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    placeholder="Décrivez votre projet..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                  Envoyer le Message
+                </button>
+              </form>
+            </div>
+          </article>
+
+          <!-- Colonne droite -->
+          <div class="contact-side">
+            <article class="card">
+              <div class="card-content">
+                <h3 class="small-title">Contact Direct</h3>
+                <a
+                  href="mailto:tom.dev.eadl@gmail.com"
+                  class="contact-link"
+                >
+                  <div class="contact-link-icon">✉️</div>
+                  <div class="contact-link-text">
+                    <p class="text-muted small">Email</p>
+                    <p class="font-medium">tom.dev.eadl@gmail.com</p>
+                  </div>
+                </a>
+              </div>
+            </article>
+
+            <article class="card card-primary-soft">
+              <div class="card-content">
+                <h3 class="small-title">Réponse Rapide</h3>
+                <p class="text-muted small">
+                  Je réponds généralement sous 24h aux demandes de devis et d'information.
+                </p>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-content">
+                <h3 class="small-title">Devis Gratuit</h3>
+                <p class="text-muted small">
+                  Tous les devis sont gratuits et sans engagement.
+                  N'hésitez pas à me contacter !
+                </p>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
+  <!-- FOOTER -->
+  <footer class="footer">
     <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
-        <span>© <span id="year"></span> Tom Charuel — tuwwix.dev</span>
-      </div>
+      <p class="text-muted small">
+        &copy; 2025 Tom - Développeur Full-Stack. Tous droits réservés.
+      </p>
+      <span style="font-size:0.8rem">
+          SIRET : <strong>99428854600017</strong> — 
+          <a href="mentions.html" style="text-decoration:underline; color:inherit">Mentions Légales & CGV</a>
+        </span>
     </div>
   </footer>
 

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tarifs — Tom Charuel</title>
   <meta name="description" content="Tarifs des prestations web — Tom Charuel" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="tarifs.css">
 </head>
 <body>
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="avatar" aria-hidden="true"><img src="avatar.png" alt="Avatar de Tom"/></div>
+        <div class="avatar" aria-hidden="true"><img src="logo.png" alt="Logo LVLP"/></div>
         <h1>Tom Charuel</h1>
       </div>
       <nav class="links">
@@ -145,8 +145,8 @@
               • <em>Module supplémentaire : à partir de 150 € / unité.</em>
             </td>
           </tr>
-          <tr>
-            <td data-label="Solution">Vitrine Administrable</td>
+          <tr style="background: color-mix(in oklab, var(--accent), transparent 92%);">
+            <td data-label="Solution">Vitrine Administrable <span style="display:inline-block; margin-left:8px; padding:2px 8px; background:var(--accent); color:#fff; border-radius:4px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">⭐ Meilleure vente</span></td>
             <td data-label="Tarif"><span class="price">1 800 €</span></td>
             <td data-label="Fonctionnalités">
               • Site Vitrine + <strong>Espace de gestion complet</strong><br>
@@ -161,15 +161,6 @@
               • Présentation de tous vos produits avec filtres de recherche.<br>
               • Gestion des stocks et fiches produits via votre espace admin.<br>
               • Idéal pour demande de devis (Pas de paiement en ligne).
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Solution">E-commerce Complet</td>
-            <td data-label="Tarif"><span class="price">2 800 €</span></td>
-            <td data-label="Fonctionnalités">
-              • Catalogue complet + Panier d'achat.<br>
-              • <strong>Paiement sécurisé</strong> (Carte Bancaire, PayPal...).<br>
-              • Gestion des commandes et factures automatiques.
             </td>
           </tr>
         </tbody>
@@ -234,8 +225,13 @@
 
   <footer>
     <div class="container">
-      <div style="text-align:center; font-size:0.9rem">
-        <span>© 2025 Tom Charuel — Développeur Web EADL (Bretagne)</span>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; padding-bottom:20px; color:var(--muted); font-size:0.9rem">
+        <span>© <span id="year"></span> Tom Charuel — tuwwix.dev</span>
+        
+        <span style="font-size:0.8rem">
+          SIRET : <strong>99428854600017</strong> — 
+          <a href="mentions.html" style="text-decoration:underline; color:inherit">Mentions Légales & CGV</a>
+        </span>
       </div>
     </div>
   </footer>
