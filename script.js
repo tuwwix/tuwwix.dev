@@ -1,14 +1,9 @@
 // script.js
 
-// Initialize EmailJS (guarded in case the library failed to load)
-if (typeof emailjs !== "undefined" && typeof emailjs.init === "function") {
-  emailjs.init("Z41GVhq7AM_sFFKpp");
-} else {
-  console.warn("EmailJS library not loaded — les envois d'email côté client seront indisponibles.");
-}
+// Initialize EmailJS
+emailjs.init("Z41GVhq7AM_sFFKpp");
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("script.js: DOMContentLoaded — initialisation des handlers");
   /* =========================
      NAVBAR SCROLL
      ========================= */
@@ -32,13 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const targetId = btn.getAttribute("data-scroll-target");
-      console.log("nav click ->", targetId, btn);
       if (!targetId) return;
       const section = document.getElementById(targetId);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
-      } else {
-        console.warn("Section cible introuvable pour :", targetId);
       }
       // Fermer le menu mobile si ouvert
       if (mobileMenu) {
@@ -102,22 +94,44 @@ document.addEventListener("DOMContentLoaded", () => {
       const subject = (formData.get("subject") || "Demande de contact").toString();
       const message = (formData.get("message") || "").toString();
 
-      // Envoyer via EmailJS
-      if (typeof emailjs === 'undefined' || typeof emailjs.send !== 'function') {
-        console.error('Impossible d\'envoyer : EmailJS non chargé.');
-        alert("Le service d'envoi est actuellement indisponible. Réessayez plus tard.");
-        return;
-      }
+      // Génération de la date/heure au format lisible
+      const now = new Date();
+      const time = now.toLocaleString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        timeZone: "Europe/Paris"
+      });
 
-      emailjs.send("service_9jhrcxa", "template_3ice70q", {
+      // Variables pour le mail du propriétaire (Contact Us template)
+      const paramsOwner = {
         to_email: "tom.dev.eadl@gmail.com",
-        from_name: name,
-        from_email: email,
+        name: name,
+        email: email,
         subject: subject,
-        message: message
-      }).then(
+        message: message,
+        time: time
+      };
+
+      // Variables pour l'auto-réponse (Auto-Reply template)
+      const paramsAutoReply = {
+        to_email: email,
+        from_name: name,
+        subject: subject
+      };
+
+      // 1. Envoyer le mail au propriétaire
+      emailjs.send("service_9jhrcxa", "template_dgo3lab", paramsOwner).then(
+        () => {
+          // 2. Envoyer l'auto-réponse au client
+          return emailjs.send("service_9jhrcxa", "template_jij7c45", paramsAutoReply);
+        }
+      ).then(
         (response) => {
-          console.log("Email envoyé avec succès !", response);
+          console.log("Message reçu et auto-réponse envoyée !", response);
           
           // Reset du formulaire
           contactForm.reset();
