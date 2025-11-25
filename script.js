@@ -152,7 +152,24 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         (error) => {
           console.error("Erreur EmailJS :", error);
-          alert("Erreur lors de l'envoi : " + JSON.stringify(error));
+          // Afficher un toast d'erreur au lieu d'une alerte bloquante
+          if (toast) {
+            toast.textContent = "⚠️ Erreur lors de l'envoi. Veuillez réessayer.";
+            toast.style.background = "#ef4444";
+            toast.style.display = "block";
+            toast.classList.remove("hide");
+            
+            // Masquer après 4 secondes
+            setTimeout(() => {
+              toast.classList.add("hide");
+              setTimeout(() => {
+                toast.style.display = "none";
+                // Restaurer le style du toast de succès
+                toast.textContent = "✅ Message envoyé avec succès !";
+                toast.style.background = "#22c55e";
+              }, 300);
+            }, 4000);
+          }
         }
       );
     });
