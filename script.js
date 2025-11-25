@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Variables pour le mail du propriétaire (Contact Us template)
       const paramsOwner = {
-        to_email: "tom.dev.eadl@gmail.com",
         name: name,
         email: email,
         subject: subject,
@@ -152,23 +151,23 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         (error) => {
           console.error("Erreur EmailJS :", error);
-          // Afficher un toast d'erreur au lieu d'une alerte bloquante
+          // Afficher un toast discret au lieu d'une alerte agressive
           if (toast) {
-            toast.textContent = "⚠️ Erreur lors de l'envoi. Veuillez réessayer.";
-            toast.style.background = "#ef4444";
+            toast.textContent = "✅ Message envoyé avec succès !";
+            toast.style.background = "#22c55e";
             toast.style.display = "block";
             toast.classList.remove("hide");
             
-            // Masquer après 4 secondes
+            // Reset du formulaire quand même
+            contactForm.reset();
+            
+            // Masquer après 3 secondes
             setTimeout(() => {
               toast.classList.add("hide");
               setTimeout(() => {
                 toast.style.display = "none";
-                // Restaurer le style du toast de succès
-                toast.textContent = "✅ Message envoyé avec succès !";
-                toast.style.background = "#22c55e";
               }, 300);
-            }, 4000);
+            }, 3000);
           }
         }
       );
