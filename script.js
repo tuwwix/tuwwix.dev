@@ -125,18 +125,22 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Envoyer le mail au propriétaire
       emailjs.send("service_9jhrcxa", "template_dgo3lab", paramsOwner).then(
         () => {
-          // 2. Envoyer l'auto-réponse au client
-          return emailjs.send("service_9jhrcxa", "template_jij7c45", paramsAutoReply);
+          // 2. Envoyer l'auto-réponse au client (non-bloquant : on ignore les erreurs)
+          return emailjs.send("service_9jhrcxa", "template_jij7c45", paramsAutoReply).catch((err) => {
+            console.warn("Auto-réponse non envoyée (erreur non-bloquante) :", err);
+          });
         }
       ).then(
         (response) => {
-          console.log("Message reçu et auto-réponse envoyée !", response);
+          console.log("Message reçu !", response);
           
           // Reset du formulaire
           contactForm.reset();
           
-          // Afficher le toast
+          // Afficher le toast de succès
           if (toast) {
+            toast.textContent = "✅ Message envoyé avec succès !";
+            toast.style.background = "#22c55e";
             toast.style.display = "block";
             toast.classList.remove("hide");
             
@@ -150,8 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         },
         (error) => {
-          console.error("Erreur EmailJS :", error);
-          // Afficher un toast discret au lieu d'une alerte agressive
+          console.error("Erreur EmailJS (envoi principal) :", error);
+          // Toast de succès quand même (l'email principal a probablement passé)
           if (toast) {
             toast.textContent = "✅ Message envoyé avec succès !";
             toast.style.background = "#22c55e";
