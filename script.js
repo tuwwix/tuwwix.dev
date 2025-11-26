@@ -83,6 +83,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form");
   const contactSuccess = document.getElementById("contact-success");
   const toast = document.getElementById("toast");
+  const subjectInput = document.getElementById("subject");
+
+  // Pré-remplir le sujet si l'utilisateur clique sur "Demander un Devis"
+  const packButtons = document.querySelectorAll("[data-pack-name]");
+  packButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const packName = btn.getAttribute("data-pack-name");
+      if (packName && subjectInput) {
+        subjectInput.value = `Demande de devis - ${packName}`;
+        subjectInput.focus();
+      }
+    });
+  });
 
   if (contactForm && contactSuccess) {
     contactForm.addEventListener("submit", (e) => {
