@@ -1,4 +1,4 @@
-// Tarteaucitron + GTM setup avec style compact noir/blanc et fallback
+// Tarteaucitron + GA4 direct (sans GTM) avec style compact noir/blanc et fallback
 (function () {
   // Forcer les assets locaux et la langue FR
   window.tarteaucitronForceCDN = "./";
@@ -27,9 +27,9 @@
     mandatory: true
   });
 
-  // GTM (conteneur GTM-MGRWS6HP; pensez à publier GA4 dans GTM)
-  tarteaucitron.user.googletagmanagerId = "GTM-MGRWS6HP";
-  (tarteaucitron.job = tarteaucitron.job || []).push("googletagmanager");
+  // GA4 direct via gtag (sans GTM)
+  tarteaucitron.user.gtagUa = "G-75W6C8YKMX";
+  (tarteaucitron.job = tarteaucitron.job || []).push("gtag");
 
   // Fermer la bannière après action (même si cookie bloqué)
   const forceCloseOnChoice = () => {
