@@ -11,7 +11,7 @@ tarteaucitron.lang = {
     "alertBigClick": "En poursuivant votre navigation,",
     "alertBig": "vous acceptez l'utilisation de services tiers pouvant installer des cookies",
     
-    "alertBigPrivacy": "Ce site utilise des cookies et vous donne le contrôle sur ceux que vous souhaitez activer",
+    "alertBigPrivacy": "Nous utilisons des cookies strictement nécessaires et, avec votre accord, des cookies de mesure d’audience (GA4).",
     "alertSmall": "Gestion des services",
     "acceptAll": "Tout accepter",
     "personalize": "Personnaliser",
@@ -89,7 +89,7 @@ tarteaucitron.lang = {
     },
     
     "mandatoryTitle": "Cookies obligatoires",
-    "mandatoryText": "Ce site utilise des cookies nécessaires à son bon fonctionnement. Ils ne peuvent pas être désactivés.",
+    "mandatoryText": "Nous utilisons des cookies strictement nécessaires et, avec votre accord, des cookies de mesure d’audience (GA4).",
 
     "save": "Enregistrer",
     "ourpartners": "Nos partenaires"
