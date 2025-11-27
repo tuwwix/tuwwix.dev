@@ -13,6 +13,7 @@
     privacyUrl: "mentions.html",
     hashtag: "#tarteaucitron",
     cookieName: "tarteaucitron",
+    cookieDomain: window.location.hostname,
     orientation: "bottom",
     showAlertSmall: false,
     showIcon: false,
