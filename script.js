@@ -85,6 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("toast");
   const subjectInput = document.getElementById("subject");
   const honeypotInput = document.getElementById("hp_field");
+  let captchaToken = "";
+
+  window.onHcaptchaSuccess = (token) => {
+    captchaToken = token;
+  };
+
+  window.onHcaptchaExpired = () => {
+    captchaToken = "";
+  };
 
   const showToast = (message, background = "#22c55e") => {
     if (!toast) return;
@@ -123,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const captchaToken = window.hcaptcha?.getResponse ? window.hcaptcha.getResponse() : "";
       if (!captchaToken) {
         showToast("Merci de valider le captcha avant d'envoyer.", "#ef4444");
         return;
@@ -179,6 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Reset du formulaire
             contactForm.reset();
             window.hcaptcha?.reset?.();
+            captchaToken = "";
 
             // Afficher le toast de succes
             showToast("Bien. Message envoye avec succes !");
@@ -189,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showToast("Bien. Message envoye avec succes !");
             contactForm.reset();
             window.hcaptcha?.reset?.();
+            captchaToken = "";
           }
         );
     });
