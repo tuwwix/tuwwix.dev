@@ -132,10 +132,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!captchaToken) {
+      // Vérifier le token côté front (fail-safe même si le callback n'a pas tourné)
+      const currentToken = captchaToken || (window.hcaptcha?.getResponse ? window.hcaptcha.getResponse() : "");
+      if (!currentToken) {
         showToast("Merci de valider le captcha avant d'envoyer.", "#ef4444");
         return;
       }
+      captchaToken = currentToken;
 
       const formData = new FormData(contactForm);
       const name = (formData.get("name") || "").toString();
