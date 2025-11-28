@@ -84,6 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactSuccess = document.getElementById("contact-success");
   const toast = document.getElementById("toast");
   const subjectInput = document.getElementById("subject");
+  const honeypotInput = document.getElementById("hp_field");
+
+  const showToast = (message, background = "#22c55e") => {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.style.background = background;
+    toast.style.display = "block";
+    toast.classList.remove("hide");
+
+    setTimeout(() => {
+      toast.classList.add("hide");
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 300);
+    }, 3000);
+  };
 
   // Pré-remplir le sujet si l'utilisateur clique sur "Demander un Devis"
   const packButtons = document.querySelectorAll("[data-pack-name]");
@@ -100,6 +116,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (contactForm && contactSuccess) {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      // Champ honeypot pour filtrer les bots
+      if (honeypotInput && honeypotInput.value.trim() !== "") {
+        showToast("Impossible d'envoyer votre message pour le moment.", "#ef4444");
+        return;
+      }
+
+      const captchaToken = window.hcaptcha?.getResponse ? window.hcaptcha.getResponse() : "";
+      if (!captchaToken) {
+        showToast("Merci de valider le captcha avant d'envoyer.", "#ef4444");
+        return;
+      }
 
       const formData = new FormData(contactForm);
       const name = (formData.get("name") || "").toString();
@@ -135,59 +163,34 @@ document.addEventListener("DOMContentLoaded", () => {
         subject: subject
       };
 
-      // 1. Envoyer le mail au propriétaire
-      emailjs.send("service_9jhrcxa", "template_dgo3lab", paramsOwner).then(
-        () => {
-          // 2. Envoyer l'auto-réponse au client (non-bloquant : on ignore les erreurs)
+      // 1. Envoyer le mail au proprietaire
+      emailjs
+        .send("service_9jhrcxa", "template_dgo3lab", paramsOwner)
+        .then(() => {
+          // 2. Envoyer l'auto-reponse au client (non-bloquant : on ignore les erreurs)
           return emailjs.send("service_9jhrcxa", "template_jij7c45", paramsAutoReply).catch((err) => {
-            console.warn("Auto-réponse non envoyée (erreur non-bloquante) :", err);
+            console.warn("Auto-reponse non envoyee (erreur non-bloquante) :", err);
           });
-        }
-      ).then(
-        (response) => {
-          console.log("Message reçu !", response);
-          
-          // Reset du formulaire
-          contactForm.reset();
-          
-          // Afficher le toast de succès
-          if (toast) {
-            toast.textContent = "✅ Message envoyé avec succès !";
-            toast.style.background = "#22c55e";
-            toast.style.display = "block";
-            toast.classList.remove("hide");
-            
-            // Masquer après 3 secondes
-            setTimeout(() => {
-              toast.classList.add("hide");
-              setTimeout(() => {
-                toast.style.display = "none";
-              }, 300);
-            }, 3000);
-          }
-        },
-        (error) => {
-          console.error("Erreur EmailJS (envoi principal) :", error);
-          // Toast de succès quand même (l'email principal a probablement passé)
-          if (toast) {
-            toast.textContent = "✅ Message envoyé avec succès !";
-            toast.style.background = "#22c55e";
-            toast.style.display = "block";
-            toast.classList.remove("hide");
-            
-            // Reset du formulaire quand même
+        })
+        .then(
+          (response) => {
+            console.log("Message recu !", response);
+
+            // Reset du formulaire
             contactForm.reset();
-            
-            // Masquer après 3 secondes
-            setTimeout(() => {
-              toast.classList.add("hide");
-              setTimeout(() => {
-                toast.style.display = "none";
-              }, 300);
-            }, 3000);
+            window.hcaptcha?.reset?.();
+
+            // Afficher le toast de succes
+            showToast("Bien. Message envoye avec succes !");
+          },
+          (error) => {
+            console.error("Erreur EmailJS (envoi principal) :", error);
+            // Toast de succes quand meme (l'email principal a probablement passe)
+            showToast("Bien. Message envoye avec succes !");
+            contactForm.reset();
+            window.hcaptcha?.reset?.();
           }
-        }
-      );
+        );
     });
   }
 });

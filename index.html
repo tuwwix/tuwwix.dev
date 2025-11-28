@@ -12,6 +12,7 @@
   <script src="tarteaucitron.js" defer></script>
   <script src="consent.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
   <style>
     .toast {
       position: fixed;
@@ -756,6 +757,23 @@
                     required
                   ></textarea>
                 </div>
+                <div class="form-group">
+                  <div
+                    class="h-captcha"
+                    data-sitekey="9a1a982e-808a-4e1a-a036-a266cc4494ae"
+                    data-theme="light"
+                  ></div>
+                  <input
+                    type="text"
+                    name="hp_field"
+                    id="hp_field"
+                    tabindex="-1"
+                    autocomplete="off"
+                    style="position:absolute; left:-5000px;"
+                    aria-hidden="true"
+                  />
+                </div>
+
 
                 <button type="submit" class="btn btn-primary btn-full">
                   Envoyer le Message
